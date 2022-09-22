@@ -4,7 +4,7 @@ function countLetters (arr) {
   const obj = {};
   for(let i = 0; i < arr.length; i++) {
     let elem = arr[i].toLowerCase();
-    elem = elem.replace(/\s/g, '');//to not count spaces
+    elem = elem.replace(/\s/g, '');//to remove spaces
     for(let j = 0; j < elem.length ; j++) {
       if(obj[elem[j]] == undefined) {
         obj[elem[j]] = 1;
