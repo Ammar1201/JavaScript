@@ -46,14 +46,14 @@ console.log(book1);
 bookUtils.setTranslation(book2, `English`, `Arabic`);
 console.log(book2);
 
-bookUtils.setPublisher(book1, `Ammar`, `KUsiefe`);
-bookUtils.setPublisher(book2, `Ammar`, `KUsiefe`);
+bookUtils.setPublisher(book1, `Ammar`, `Kusiefe`);
+bookUtils.setPublisher(book2, `Ammar`, `Kusiefe`);
 console.log(bookUtils.isSamePublisher(book1, book2));
 
-bookUtils.setPublisher(book1, `Ammar`, `KUsiefe`);
-bookUtils.setPublisher(book2, `Mordi`, `KUsiefe`);
+bookUtils.setPublisher(book1, `Ammar`, `Kusiefe`);
+bookUtils.setPublisher(book2, `Mordi`, `Kusiefe`);
 console.log(bookUtils.isSamePublisher(book1, book2));
 
-bookUtils.setPublisher(book1, `Ammar`, `KUsiefe`);
+bookUtils.setPublisher(book1, `Ammar`, `Kusiefe`);
 bookUtils.setPublisher(book2, `Ammar`, `Arad`);
 console.log(bookUtils.isSamePublisher(book1, book2));
