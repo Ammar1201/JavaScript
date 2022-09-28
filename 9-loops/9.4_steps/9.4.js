@@ -13,7 +13,7 @@ function steps(N) {
   for(let i = 0; i < N; i++) {
     str = str + `#`;
     for(let j = i + 1; j < N; j++) {
-      tmp = tmp + `'`;// ' = empty space
+      tmp = tmp + `'`;// ' = empty space to be more visible in terminal
     }
     console.log(str + tmp);
     tmp = '';
