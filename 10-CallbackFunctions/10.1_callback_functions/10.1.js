@@ -20,16 +20,14 @@ isString(`Hello`, print);
 // 2.----------------------------------------------------------------------
 
 function firstWordUpperCase(str, func) {
-  const words = str.split(' ');
+  let words = str.split(' ');
   words[0] = words[0].toUpperCase();
-  let tmp = words.join(' ');
-  func(tmp);
+  words = words.join(' ');
+  func(words);
 }
 
 function dashes(str) {
-  const words = str.split(' ');
-  const tmp = words.join('-');
-  console.log(tmp);
+  console.log(str.split(' ').join('-'));
 } 
 
 firstWordUpperCase(`hello how are`, dashes);
