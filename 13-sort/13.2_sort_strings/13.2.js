@@ -7,7 +7,7 @@ console.log(foods.slice().sort((a, b) => a - b));
 
 console.log('-------------------------------------------------------------');
 
-const foodsWithUpperCase = ["Falafel", "Sabich", "Hummus", "Pizza with extra pineapple"];
+const foodsWithUpperCase = ["falafel", "Sabich", "hummus", "pizza with extra pineapple"];
 
 console.log(foodsWithUpperCase.slice().sort());
 
