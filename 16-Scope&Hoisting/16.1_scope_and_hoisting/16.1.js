@@ -41,7 +41,7 @@
 
 // logs ↓
 // Aurelio De Rosa - nearest declared variable
-// Aurelio De Rosa - nearest declared variable
+// undefined - 
 
 // -----------------------------------------------------------
 
@@ -123,3 +123,19 @@
 // Value of f in global scope: undefined
 
 // -----------------------------------------------------------
+
+// -----------------------------------------------------------
+
+// var x = 10;
+// console.log(x);//10
+// function test(){
+//   var x = 20;
+//   console.log(x);//20
+//   if (x > 10) {
+//     let x = 30;
+//     console.log(x);//30
+//   }
+//   console.log(x);//20
+// }
+// test();
+// console.log(x);//10
