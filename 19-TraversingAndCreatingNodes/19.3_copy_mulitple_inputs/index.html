@@ -13,10 +13,6 @@
       box-sizing: border-box;
     } */
 
-    .merg {
-      margin-bottom: 10px;
-    }
-
     .container {
       width: 200px;
       height: 200px;
@@ -28,30 +24,29 @@
       text-align: center;
     }
 
-    .inputs {
-      margin-bottom: 10px;
+    .input {
+      width: 15px;
     }
 
-    .input {
-      width: 10px;
+    .btn:hover {
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <label class="merg">Text to copy:</label>
+    <label>Text to copy:</label>
     <br>
-    <label class="merg">123456</label>
-    <div class="box">
-      <div class="inputs">
-        <input type="text" class="input">
-        <input type="text" class="input">
-        <input type="text" class="input">
-        <input type="text" class="input">
-        <input type="text" class="input">
-        <input type="text" class="input">
-      </div>
-      <input type="submit" value="Verify">
+    <label>123456</label>
+    <form action="" class="box" id="form">
+      <input type="text" class="input" maxlength="1">
+      <input type="text" class="input" maxlength="1">
+      <input type="text" class="input" maxlength="1">
+      <input type="text" class="input" maxlength="1">
+      <input type="text" class="input" maxlength="1">
+      <input type="text" class="input" maxlength="1">
+      <input type="submit" value="Verify" class="btn">
+    </form>
   </div>
   <script src="./script.js"></script>
 </body>
