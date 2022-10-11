@@ -7,9 +7,9 @@ const inputs = document.querySelectorAll('.input');
 //   console.log(event);
 // });
 
-document.querySelector('#form').addEventListener("submit", function(event) {
-  event.preventDefault()
-});
+// document.querySelector('#form').addEventListener("submit", function(event) {
+//   event.preventDefault()
+// });
 
 document.querySelector('#form').addEventListener('paste', pasting);
 
@@ -35,5 +35,25 @@ function pasting(event) {
 
   if(counter === 6) {
     document.getElementById('form').submit();
+  }
+}
+
+document.querySelector('#form').addEventListener('keyup', moveNext);
+
+function moveNext(event) {
+  let target = event.srcElement || e.target;
+  let maxLength = parseInt(target.attributes["maxlength"].value, 10);
+  let myLength = target.value.length;
+  if (myLength >= maxLength) {
+    let next = target;
+    while (next = next.nextElementSibling) {
+      if (next == null) {
+          break;
+      }
+      if (next.tagName.toLowerCase() === "input") {
+        next.focus();
+        break;
+      }
+    }
   }
 }
