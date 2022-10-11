@@ -1,12 +1,6 @@
 
 const inputs = document.querySelectorAll('.input');
 
-// const verficationCode = document.querySelectorAll('label')[1];
-
-// verficationCode.addEventListener('copy', (event) => {
-//   console.log(event);
-// });
-
 // document.querySelector('#form').addEventListener("submit", function(event) {
 //   event.preventDefault()
 // });
