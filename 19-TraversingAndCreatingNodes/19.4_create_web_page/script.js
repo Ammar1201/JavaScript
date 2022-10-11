@@ -1,19 +1,4 @@
 
-/* <div class="container">
-  <label>Text to copy:</label>
-  <br>
-  <label>123456</label>
-  <form action="" class="box" id="form">
-    <input type="text" class="input" maxlength="1">
-    <input type="text" class="input" maxlength="1">
-    <input type="text" class="input" maxlength="1">
-    <input type="text" class="input" maxlength="1">
-    <input type="text" class="input" maxlength="1">
-    <input type="text" class="input" maxlength="1">
-    <input type="submit" value="Verify" class="btn">
-  </form>
-</div> */
-
 const div = document.createElement('div');
 div.style.width = '200px';
 div.style.height = '200px';
