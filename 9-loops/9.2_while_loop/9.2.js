@@ -15,4 +15,4 @@ const lengthOfWords = (arr) => {
   
   console.log(lengthOfWords(["boo", "doooo", "hoo","ro"]));
 
-  //for loop is better and more redable
+  //for loop is better and more readable
