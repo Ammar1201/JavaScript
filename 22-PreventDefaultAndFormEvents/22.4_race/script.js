@@ -1,15 +1,3 @@
-function isTouching(a, b) {
-	const aRect = a.getBoundingClientRect();
-	const bRect = b.getBoundingClientRect();
-
-	return !(
-		aRect.top + aRect.height < bRect.top ||
-		aRect.top > bRect.top + bRect.height ||
-		aRect.left + aRect.width < bRect.left ||
-		aRect.left > bRect.left + bRect.width
-	);
-}
-
 const player1 = document.querySelector("#player1-race");
 let player1Active = player1.firstElementChild;
 const player2 = document.querySelector("#player2-race");

@@ -1,4 +1,3 @@
-
 const nameInput = document.querySelector('input[type="text"]');
 const ageInput = document.querySelector('input[type="number"]');
 const emailInput = document.querySelector('input[type="email"]');
@@ -11,7 +10,6 @@ const ageLabel = document.querySelector('#age');
 const emailLabel = document.querySelector('#email');
 const btnCancel = document.querySelector('#btnCancel');
 const btnConfirm = document.querySelector('#btnConfirm');
-
 
 const formData = {};
 for(let input of [nameInput, ageInput, emailInput]) {
@@ -49,4 +47,3 @@ btnCancel.addEventListener('click', () => {
 
   toggled = false;
 });
-

@@ -1,4 +1,3 @@
-
 const alphabet = 'abcdefghijklmnopqrstuvwxyz';
 const wrongInputs = '0123456789!@#$%^&*()*+,-./=-_';
 let guessedLetters = [];
@@ -77,4 +76,3 @@ yesBtn.addEventListener('click', () => {
   guessedLetters = [];
   guessed = false;
 });
-
