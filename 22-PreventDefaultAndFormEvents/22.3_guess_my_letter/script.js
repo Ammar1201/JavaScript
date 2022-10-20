@@ -69,6 +69,7 @@ yesBtn.addEventListener('click', () => {
   playAgain.setAttribute('class', 'none');
   input.setAttribute('class', 'editable');
   guess.innerText = 'Guess a key';
+  guess.style.color = 'black';
   input.value = '';
   randomLetterToGuess = randomLetter();
   firstTime = true;
