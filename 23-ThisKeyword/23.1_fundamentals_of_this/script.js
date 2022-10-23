@@ -25,7 +25,7 @@ const myFuncDec = function () {
   console.log(this);
 };
   
-//* this points to the window object because it's in the global scope and it is not inside an object to point to it
+//* this points to the window object because it's in the global scope (the global scope is the owner of the function)
 
 //! 4-
 
@@ -35,7 +35,7 @@ const myFuncArrow = () => {
 
 myFuncArrow();
 
-//* this points to the window object because it's in the global scope and it is not inside an object to point to it
+//* this points to the window object because it's in the global scope (the global scope is the owner of the function)
 
 //! 5- 
 
