@@ -3,7 +3,6 @@ const storm = {
   // add code here
   superPower: 'flying',
   printSuperPower() {
-    console.log(this);
     printSuperPower();
   }
 };
