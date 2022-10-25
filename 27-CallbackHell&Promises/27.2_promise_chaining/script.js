@@ -27,17 +27,15 @@ function sortWords(words) {
   
 const str = ['hello', 'words', 'world', 'hidden', 'hi'];
 
-const arr = ['hello', 'words', 'world', 'hidden', 'hi', 25];
+const arr = ['hello', 'words', 'world', 'hidden', 'hi', 50];
 
 makeAllCaps(str)
   .then((capitalized) => {
-    sortWords(capitalized)
-    .then((sorted) => {
-      console.log('your words capitalized and sorted', sorted);
-    })
-    .catch(() => {
-      console.log('your words include something other than a string', capitalized);
-    })
+    console.log('string');
+    return sortWords(capitalized)
+  })
+  .then((sorted) => {
+    console.log('your words capitalized and sorted', sorted);
   })
   .catch(() => {
     console.log('your words include something other than a string', str);
@@ -45,13 +43,10 @@ makeAllCaps(str)
 
 makeAllCaps(arr)
   .then((capitalized) => {
-    sortWords(capitalized)
-    .then((sorted) => {
-      console.log('your words capitalized and sorted', sorted);
-    })
-    .catch(() => {
-      console.log('your words include something other than a string', capitalized);
-    })
+    return sortWords(capitalized)
+  })
+  .then((sorted) => {
+    console.log('your words capitalized and sorted', sorted);
   })
   .catch(() => {
     console.log('your words include something other than a string', arr);

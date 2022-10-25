@@ -8,9 +8,7 @@ const jokeBtn = document.querySelector('button');
 //       if(!res.ok) {
 //         throw new Error('Error fetching');
 //       }
-//       else {
-//         return res.json()
-//       }
+//       return res.json()
 //     })
 //     .then((data) => {
 //       const label = document.createElement('label');
