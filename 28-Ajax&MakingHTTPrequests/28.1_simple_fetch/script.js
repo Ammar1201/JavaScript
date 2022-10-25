@@ -6,13 +6,13 @@ jokeBtn.addEventListener('click', (event) => {
   fetch('https://api.jokes.one/jod')
     .then((res) => {
       if(!res.ok) {
-        throw new Error('Error fetching');
+        throw Error('Error fetching');
       }
       return res.json()
     })
     .then((data) => {
       const label = document.createElement('label');
-      label.innerHTML = `<br> Joke Title is → ${data.contents.jokes[0].joke.title}<br> The joke is → ${data.contents.jokes[0].joke.text}`;
+      label.innerHTML = `<br>${data.contents.jokes[0].joke.title}<br>${data.contents.jokes[0].joke.text}`;
       document.body.appendChild(label);
     })
     .catch((err) => {

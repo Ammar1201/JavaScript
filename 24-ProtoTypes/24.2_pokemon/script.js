@@ -15,8 +15,7 @@ Pokemon.prototype.callPokemon = function() {
 };
 
 Pokemon.prototype.attack = function(attackNumber) {
-  const attack = this.attackList[attackNumber];
-  console.log(`${this.name} used ${attack}`);
+  console.log(`${this.name} used ${this.attackList[attackNumber]}`);
 };
 
 pokemon1.callPokemon();

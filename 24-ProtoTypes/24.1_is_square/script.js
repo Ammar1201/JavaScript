@@ -7,10 +7,7 @@ function Square(a, b, c, d){
 }
 
 Square.prototype.isSquare = function() {
-  if(this.a === this.b && this.b === this.c && this.c === this.d && this.d === this.a) {
-    return true;
-  }
-  return false;
+  return this.a === this.b && this.b === this.c && this.c === this.d && this.d === this.a;
 };
 
 const square = new Square(2,1,2,2);

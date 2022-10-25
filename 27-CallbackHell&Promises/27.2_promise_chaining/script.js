@@ -5,9 +5,7 @@ function makeAllCaps(words) {
       if(typeof word === 'string') {
         return word.toUpperCase();
       }
-      else {
-        rejected();
-      }
+      rejected();
     });
 
     resolved(capitals);
@@ -27,13 +25,10 @@ function sortWords(words) {
   
 const str = ['hello', 'words', 'world', 'hidden', 'hi'];
 
-const arr = ['hello', 'words', 'world', 'hidden', 'hi', 50];
+const arr = ['hello', 'words', 80, 'world', 'hidden', 'hi'];
 
 makeAllCaps(str)
-  .then((capitalized) => {
-    console.log('string');
-    return sortWords(capitalized)
-  })
+  .then((capitalized) => sortWords(capitalized))
   .then((sorted) => {
     console.log('your words capitalized and sorted', sorted);
   })
@@ -42,9 +37,7 @@ makeAllCaps(str)
   });
 
 makeAllCaps(arr)
-  .then((capitalized) => {
-    return sortWords(capitalized)
-  })
+  .then((capitalized) => sortWords(capitalized))
   .then((sorted) => {
     console.log('your words capitalized and sorted', sorted);
   })
