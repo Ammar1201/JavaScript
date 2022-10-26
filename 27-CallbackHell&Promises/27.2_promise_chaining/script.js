@@ -1,11 +1,11 @@
 
 function makeAllCaps(words) {
-  return new Promise((resolved, rejected) => {
+  return new Promise((resolved, reject) => {
     const capitals = words.map(word => {
       if(typeof word === 'string') {
         return word.toUpperCase();
       }
-      rejected();
+      reject('Not a String');
     });
 
     resolved(capitals);
@@ -13,10 +13,10 @@ function makeAllCaps(words) {
 }
   
 function sortWords(words) {
-  return new Promise((resolved, rejected) => {
+  return new Promise((resolved, reject) => {
     words.forEach(word => {
       if(typeof word !== 'string') {
-        rejected();
+        reject('Not a String');
       }
     });
     resolved(words.sort());
@@ -30,17 +30,17 @@ const arr = ['hello', 'words', 80, 'world', 'hidden', 'hi'];
 makeAllCaps(str)
   .then((capitalized) => sortWords(capitalized))
   .then((sorted) => {
-    console.log('your words capitalized and sorted', sorted);
+    console.log(sorted);
   })
-  .catch(() => {
-    console.log('your words include something other than a string', str);
+  .catch((err) => {
+    console.log(err);
   });
 
 makeAllCaps(arr)
   .then((capitalized) => sortWords(capitalized))
   .then((sorted) => {
-    console.log('your words capitalized and sorted', sorted);
+    console.log(sorted);
   })
-  .catch(() => {
-    console.log('your words include something other than a string', arr);
+  .catch((err) => {
+    console.log(err);
   });

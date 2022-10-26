@@ -31,11 +31,15 @@ const getRecipe = (recipeID) => {
 //   });
 
 async function consume() {
-  const IDs = await getIDs();
-  console.log(IDs);
-  const recipe = await getRecipe(IDs[2]);
-  console.log(recipe);
+  try {
+    const IDs = await getIDs();
+    console.log(IDs);
+    const recipe = await getRecipe(IDs[2]);
+    console.log(recipe);
+  }
+  catch(error) {
+    console.log("It is an error!", error);
+  }
 }
-consume().catch((error) => {
-  console.log("It is an error!");
-});
+
+consume();
