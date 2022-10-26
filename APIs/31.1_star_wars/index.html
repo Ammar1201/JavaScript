@@ -13,20 +13,71 @@
   }
 
   th, td {
-    width: 50px;
-    font-size: 25px;
+    width: 200px;
+    font-size: 1.5rem;
+    height: 40px;
+    text-align: center;
   }
 
-  th {
-    color: red;
-  }
-
-  td:hover {
+  td:hover, th:hover {
     background-color: gold;
   }
+
+  tr:nth-child(odd), th:nth-child(odd) {
+    background-color: green;
+  }
+
+  tr:nth-child(even), th:nth-child(even) {
+    background-color: lightgreen;
+  }
+
 </style>
 <body>
-  <table id="mytable"></table>
+  <table>
+    <th colspan="5">Star Wars</th>
+    <tr>
+      <th>name</th>
+      <th>hair</th>
+      <th>height</th>
+      <th>planet name</th>
+      <th>planet population</th>
+    </tr>
+    <tr>
+      <td>luke skywalker</td>
+      <td>blond</td>
+      <td>172</td>
+      <td>tatooine</td>
+      <td>200000</td>
+    </tr>
+    <tr>
+      <td>luke skywalker</td>
+      <td>blond</td>
+      <td>172</td>
+      <td>tatooine</td>
+      <td>200000</td>
+    </tr>
+    <tr>
+      <td>luke skywalker</td>
+      <td>blond</td>
+      <td>172</td>
+      <td>tatooine</td>
+      <td>200000</td>
+    </tr>
+    <tr>
+      <td>luke skywalker</td>
+      <td>blond</td>
+      <td>172</td>
+      <td>tatooine</td>
+      <td>200000</td>
+    </tr>
+    <tr>
+      <td>luke skywalker</td>
+      <td>blond</td>
+      <td>172</td>
+      <td>tatooine</td>
+      <td>200000</td>
+    </tr>
+  </table>
   <script src="./script.js"></script>
 </body>
 </html>

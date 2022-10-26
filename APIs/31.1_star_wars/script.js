@@ -9,7 +9,9 @@
   5. Planet population
  */
 
-const data = [];
+// const data = [];
+
+const table = document.createElement('table');
 
 const fetchData = async (num) => {
   try {
@@ -34,18 +36,24 @@ const fetchData = async (num) => {
 };
 
 const fetchNCharacters = async (num) => {
+  const data = [];
   for(let i = 1; i <= num; i++) {
     const tmp = await fetchData(i);
     data.push(tmp);
-    console.log(tmp);
   }
+  return data;
 }
 
-const start = async () => {
-  await fetchNCharacters(10);
-  console.log(data);
-  displayData(data);
+const displayData = async () => {
+  const data = await fetchNCharacters(10);
+
+
 
 };
 
-start();
+const start = async () => {
+  console.log(data);
+  displayData(data);
+};
+
+// start();
