@@ -1,3 +1,8 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
 img {
   width: 200px;
 }
@@ -14,9 +19,20 @@ a {
   color: black;
 }
 
+h2 {
+  margin-bottom: 10px;
+}
+
+#searchBar {
+  text-align: center;
+  height: 10vh;
+  background: coral;
+  color: blue;
+}
+
 #errorMsg {
-  margin: 0;
-  margin-top: 5px;
+  display: inline-block;
+  margin-left: 10px;
 }
 
 #card {
@@ -25,4 +41,9 @@ a {
   display: inline-block;
   margin-right: 20px;
   width: 220px;
+}
+
+#movie-container {
+  height: 90vh;
+  text-align: center;
 }
