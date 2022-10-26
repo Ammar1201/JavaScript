@@ -28,30 +28,38 @@ let tmpMovieContainer;
 
 let oldMovie = false;
 
+//* Async - fetching Data
 const fetchData = async (title) => {
   try {
     const url = 'https://www.omdbapi.com/?apikey=c469cd9c&t=' + title;
     const res = await fetch(url);
     if(!res.ok) {
-      throw new Error('Error fetching');
+      throw Error('Error fetching');
     }
   
-    const data = await res.json();
-    displayMovie(data);
-    oldMovie = true;
+    const data = await res.json(); //heello
+    if(data.Response !== 'False') {
+      displayMovie(data);
+      oldMovie = true;
+    }
+    else {
+      throw Error('movie not found');
+    }
   }
   catch(error) {
     errorMsg.textContent = `movie "${title}" not found`;
   }
 }
 
+//* displaying movie information
 const displayMovie = (movie) => {
 
+  // adding tmp container element to remove it later (old searched movie) to replace it with a new movie search
   tmpMovieContainer = document.createElement('div');
-  tmpMovieContainer.id  = 'tmp';
-
+  tmpMovieContainer.id  = 'tmp'; 
   movieContainer.appendChild(tmpMovieContainer);
 
+  //? movie poster --------------------------------
   const poster = document.createElement('img');
   poster.src = movie.Poster;
   tmpMovieContainer.appendChild(poster);
@@ -61,30 +69,37 @@ const displayMovie = (movie) => {
 
   tmpMovieContainer.appendChild(information);
 
+  //? movie title --------------------------------
   const title = document.createElement('h1');
   title.textContent = movie.Title;
   information.appendChild(title);
 
+  //? movie plot --------------------------------
   const plot = document.createElement('p');
   plot.textContent = movie.Plot;
   information.appendChild(plot);
 
+  //? movie director --------------------------------
   const director = document.createElement('h2');
   director.textContent = `Director: ${movie.Director}`;
   information.appendChild(director);
 
+  //? movie genre --------------------------------
   const genre = document.createElement('h2');
   genre.textContent = `Genres: ${movie.Genre}`;
   information.appendChild(genre);
 
+  //? movie actors --------------------------------
   const actors = document.createElement('h2');
   actors.textContent = `Actors: ${movie.Actors}`;
   information.appendChild(actors);
 
+  //? movie released date --------------------------------
   const released = document.createElement('h2');
   released.textContent = `Released: ${movie.Released}`;
   information.appendChild(released);
 
+  //? movie ratings --------------------------------
   const rate = document.createElement('h2');
   rate.textContent = 'Ratings:';
   information.appendChild(rate);
@@ -95,6 +110,7 @@ const displayMovie = (movie) => {
   displayRatings(movie, ratings);
 };
 
+//* displaying movie ratings
 const displayRatings = (movie, ratings) => {
 
   let imdb = movie.imdbRating, rotten, metacritic;
@@ -147,59 +163,72 @@ const displayRatings = (movie, ratings) => {
   }
 };
 
+//* deleting old searched movie
 const deleteOldMovie = () => {
   tmpMovieContainer.remove();
 }
 
-window.addEventListener('load', () => {
-  searchInput.focus();
-})
-
-searchBtn.addEventListener('click', () => {
-  const title = searchInput.value;
-
-  if(title === '') {
-    errorMsg.textContent = 'Please enter a title';
-    return;
-  }
-
-  if(oldMovie) {
-    deleteOldMovie();
-    fetchData(title);
-    searchInput.value = '';
+//*  Events ----------------------------
+const addEvents = () => {
+  window.addEventListener('load', () => {
     searchInput.focus();
-    return;
-  }
-
-  fetchData(title);
-  searchInput.value = '';
-  searchInput.focus();
-});
-
-searchInput.addEventListener('keydown', (event) => {
-  const key = event.key;
-  const title = event.target.value;
-
-  if(key === 'Enter') {
+  })
+  
+  searchBtn.addEventListener('click', () => {
+    const title = searchInput.value;
+  
     if(title === '') {
       errorMsg.textContent = 'Please enter a title';
       return;
     }
-
+  
     if(oldMovie) {
       deleteOldMovie();
       fetchData(title);
-      event.target.value = '';
+      searchInput.value = '';
       searchInput.focus();
       return;
     }
-
+  
     fetchData(title);
-    event.target.value = '';
+    searchInput.value = '';
     searchInput.focus();
-  }
-});
+  });
+  
+  searchInput.addEventListener('keydown', (event) => {
+    const key = event.key;
+    const title = event.target.value;
+  
+    if(key === 'Enter') {
+      if(title === '') {
+        errorMsg.textContent = 'Please enter a title';
+        return;
+      }
+  
+      if(oldMovie) {
+        deleteOldMovie();
+        fetchData(title);
+        event.target.value = '';
+        errorMsg.textContent = '';
+        searchInput.focus();
+        return;
+      }
+  
+      fetchData(title);
+      event.target.value = '';
+      errorMsg.textContent = '';
+      searchInput.focus();
+    }
+  });
+  
+  searchInput.addEventListener('focus', () => {
+    errorMsg.textContent = '';
+  });
+}
 
-searchInput.addEventListener('focus', () => {
-  errorMsg.textContent = '';
-});
+//* main function - starting app
+const startApp = () => {
+  addEvents();
+};
+
+startApp();
