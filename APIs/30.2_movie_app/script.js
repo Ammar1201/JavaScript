@@ -158,6 +158,11 @@ window.addEventListener('load', () => {
 searchBtn.addEventListener('click', () => {
   const title = searchInput.value;
 
+  if(title === '') {
+    errorMsg.textContent = 'Please enter a title';
+    return;
+  }
+
   if(oldMovie) {
     deleteOldMovie();
     fetchData(title);
@@ -165,7 +170,7 @@ searchBtn.addEventListener('click', () => {
     searchInput.focus();
     return;
   }
-  
+
   fetchData(title);
   searchInput.value = '';
   searchInput.focus();
@@ -176,6 +181,11 @@ searchInput.addEventListener('keydown', (event) => {
   const title = event.target.value;
 
   if(key === 'Enter') {
+    if(title === '') {
+      errorMsg.textContent = 'Please enter a title';
+      return;
+    }
+
     if(oldMovie) {
       deleteOldMovie();
       fetchData(title);
