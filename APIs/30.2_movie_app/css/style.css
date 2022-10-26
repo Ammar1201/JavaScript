@@ -53,6 +53,7 @@ button {
   display: flex;
   color: #fff;
   justify-content: center;
+  align-items: center;
 }
 
 #information {
