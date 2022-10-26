@@ -43,8 +43,11 @@ a {
 }
 
 #movie-container {
-  height: 90vh;
   background: gray;
+  height: 90vh;
+}
+
+#tmp {
   display: flex;
   color: #fff;
   justify-content: center;

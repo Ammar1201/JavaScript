@@ -3,6 +3,8 @@
 
 //* https://www.omdbapi.com/?apikey=c469cd9c&
 
+//* https://www.omdbapi.com/?apikey=[key]c&t=shark
+
 /**
 1. Movie poster **
 2. Movie title ***
@@ -22,6 +24,10 @@ const searchBtn = document.querySelector('button');
 const errorMsg = document.querySelector('#errorMsg');
 const movieContainer = document.querySelector('#movie-container');
 
+let tmpMovieContainer;
+
+let oldMovie = false;
+
 const fetchData = async (title) => {
   try {
     const url = 'https://www.omdbapi.com/?apikey=c469cd9c&t=' + title;
@@ -32,6 +38,7 @@ const fetchData = async (title) => {
   
     const data = await res.json();
     displayMovie(data);
+    oldMovie = true;
   }
   catch(error) {
     errorMsg.textContent = `movie "${title}" not found`;
@@ -39,15 +46,20 @@ const fetchData = async (title) => {
 }
 
 const displayMovie = (movie) => {
+
+  tmpMovieContainer = document.createElement('div');
+  tmpMovieContainer.id  = 'tmp';
+
+  movieContainer.appendChild(tmpMovieContainer);
+
   const poster = document.createElement('img');
-  console.log(movie.Poster);
   poster.src = movie.Poster;
-  movieContainer.appendChild(poster);
+  tmpMovieContainer.appendChild(poster);
 
   const information = document.createElement('div');
   displayMovie.id = 'information';
 
-  movieContainer.appendChild(information);
+  tmpMovieContainer.appendChild(information);
 
   const title = document.createElement('h1');
   title.textContent = movie.Title;
@@ -98,45 +110,86 @@ const displayRatings = (movie, ratings) => {
     }
   });
 
-  const rating1 = document.createElement('div');
-  rating1.classList.add('rating');
-  const imgIMDB = document.createElement('img');
-  imgIMDB.src = './img/imdb.png';
-  const span = document.createElement('span');
-  span.textContent = `${imdb}/10`;
-  rating1.appendChild(imgIMDB);
-  rating1.appendChild(span);
-  ratings.appendChild(rating1);
+  if(imdb !== undefined) {
+    const rating1 = document.createElement('div');
+    rating1.classList.add('rating');
+    const imgIMDB = document.createElement('img');
+    imgIMDB.src = './img/imdb.png';
+    const span = document.createElement('span');
+    span.textContent = `${imdb}/10`;
+    rating1.appendChild(imgIMDB);
+    rating1.appendChild(span);
+    ratings.appendChild(rating1);
+  }
 
-  const rating2 = document.createElement('div');
-  rating2.classList.add('rating');
-  const imgTomato = document.createElement('img');
-  imgTomato.src = './img/tomato.png';
-  const span2 = document.createElement('span');
-  span2.textContent = rotten;
-  rating2.appendChild(imgTomato);
-  rating2.appendChild(span2);
-  ratings.appendChild(rating2);
+  if(rotten !== undefined) {
+    const rating2 = document.createElement('div');
+    rating2.classList.add('rating');
+    const imgTomato = document.createElement('img');
+    imgTomato.src = './img/tomato.png';
+    const span2 = document.createElement('span');
+    span2.textContent = rotten;
+    rating2.appendChild(imgTomato);
+    rating2.appendChild(span2);
+    ratings.appendChild(rating2);
+  }
 
-  const rating3 = document.createElement('div');
-  rating3.classList.add('rating');
-  const imgMetacritic = document.createElement('img');
-  imgMetacritic.src = './img/metacritic.png';
-  const span3 = document.createElement('span');
-  span3.textContent = metacritic;
-  rating3.appendChild(imgMetacritic);
-  rating3.appendChild(span3);
-  ratings.appendChild(rating3);
+  if(metacritic !== undefined) {
+    const rating3 = document.createElement('div');
+    rating3.classList.add('rating');
+    const imgMetacritic = document.createElement('img');
+    imgMetacritic.src = './img/metacritic.png';
+    const span3 = document.createElement('span');
+    span3.textContent = metacritic;
+    rating3.appendChild(imgMetacritic);
+    rating3.appendChild(span3);
+    ratings.appendChild(rating3);
+  }
 };
+
+const deleteOldMovie = () => {
+  tmpMovieContainer.remove();
+}
 
 window.addEventListener('load', () => {
   searchInput.focus();
 })
 
-searchInput.addEventListener('focus', () => {
-  errorMsg.textContent = '';
+searchBtn.addEventListener('click', () => {
+  const title = searchInput.value;
+
+  if(oldMovie) {
+    deleteOldMovie();
+    fetchData(title);
+    searchInput.value = '';
+    searchInput.focus();
+    return;
+  }
+  
+  fetchData(title);
+  searchInput.value = '';
+  searchInput.focus();
 });
 
-searchBtn.addEventListener('click', () => {
-  fetchData('lucy');
+searchInput.addEventListener('keydown', (event) => {
+  const key = event.key;
+  const title = event.target.value;
+
+  if(key === 'Enter') {
+    if(oldMovie) {
+      deleteOldMovie();
+      fetchData(title);
+      event.target.value = '';
+      searchInput.focus();
+      return;
+    }
+
+    fetchData(title);
+    event.target.value = '';
+    searchInput.focus();
+  }
+});
+
+searchInput.addEventListener('focus', () => {
+  errorMsg.textContent = '';
 });
