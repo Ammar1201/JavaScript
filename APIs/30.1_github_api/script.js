@@ -32,6 +32,7 @@ const fetchData = async (user) => {
     userInformation.login = data.login;
     userInformation.public_repos = data.public_repos;
     users.push(user);
+    appendToBody(data);
   }
   catch(error) {
     errorMsg.textContent = `username "${user}" not found`;
@@ -43,8 +44,6 @@ const appendToBody = async (user) => {
   if(users.includes(user)) {
     return;
   }
-
-  await fetchData(user);
 
   if(isUserInformationEmpty()) {
     return;
@@ -78,7 +77,7 @@ const handleError = (user = '') => {
     errorMsg.textContent = `*you must provide a username`;
     return;
   }
-  errorMsg.textContent = `*user "${user}" is already searched for`;
+  errorMsg.textContent = `*user "${user}" is already displayed`;
 }
 
 window.addEventListener('load', () => {
@@ -97,13 +96,13 @@ searchInput.addEventListener('keydown', (event) => {
 
     if(users.includes(user)){
       handleError(user);
+      event.target.value = '';
       return;
     }
-    appendToBody(user);
+    fetchData(user);
     event.target.value = '';
     searchInput.focus();
   }
-
 });
 
 searchBtn.addEventListener('click', (event) => {
@@ -117,10 +116,11 @@ searchBtn.addEventListener('click', (event) => {
 
   if(users.includes(user)){
     handleError(user);
+    searchInput.value = '';
     return;
   }
 
-  appendToBody(user);
+  fetchData(user);
 
   searchInput.value = '';
   searchInput.focus();
