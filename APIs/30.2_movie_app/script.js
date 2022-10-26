@@ -31,7 +31,6 @@ const fetchData = async (title) => {
     }
   
     const data = await res.json();
-    console.log(data);
     displayMovie(data);
   }
   catch(error) {
@@ -73,6 +72,61 @@ const displayMovie = (movie) => {
   const released = document.createElement('h2');
   released.textContent = `Released: ${movie.Released}`;
   information.appendChild(released);
+
+  const rate = document.createElement('h2');
+  rate.textContent = 'Ratings:';
+  information.appendChild(rate);
+
+  const ratings = document.createElement('div');
+  ratings.id = 'ratings';
+  information.appendChild(ratings);
+  displayRatings(movie, ratings);
+};
+
+const displayRatings = (movie, ratings) => {
+
+  let imdb = movie.imdbRating, rotten, metacritic;
+
+  movie.Ratings.forEach(rating => {
+    switch (rating.Source) {
+      case 'Rotten Tomatoes':
+        rotten = rating.Value;
+        break;
+      case 'Metacritic':
+        metacritic = rating.Value;
+        break;
+    }
+  });
+
+  const rating1 = document.createElement('div');
+  rating1.classList.add('rating');
+  const imgIMDB = document.createElement('img');
+  imgIMDB.src = './img/imdb.png';
+  const span = document.createElement('span');
+  span.textContent = `${imdb}/10`;
+  rating1.appendChild(imgIMDB);
+  rating1.appendChild(span);
+  ratings.appendChild(rating1);
+
+  const rating2 = document.createElement('div');
+  rating2.classList.add('rating');
+  const imgTomato = document.createElement('img');
+  imgTomato.src = './img/tomato.png';
+  const span2 = document.createElement('span');
+  span2.textContent = rotten;
+  rating2.appendChild(imgTomato);
+  rating2.appendChild(span2);
+  ratings.appendChild(rating2);
+
+  const rating3 = document.createElement('div');
+  rating3.classList.add('rating');
+  const imgMetacritic = document.createElement('img');
+  imgMetacritic.src = './img/metacritic.png';
+  const span3 = document.createElement('span');
+  span3.textContent = metacritic;
+  rating3.appendChild(imgMetacritic);
+  rating3.appendChild(span3);
+  ratings.appendChild(rating3);
 };
 
 window.addEventListener('load', () => {
