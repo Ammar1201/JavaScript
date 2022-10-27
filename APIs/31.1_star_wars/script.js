@@ -11,6 +11,47 @@
 
 const table = document.createElement('table');
 
+const fetchData = async (url) => {
+  try {
+    const res = await fetch(url);
+    if(!res.ok) {
+      throw new Error('Error fetching');
+    }
+    const data = await res.json();
+    return data;
+  }
+  catch(error) {
+    // errorMsg.textContent = `character number "${num}" not found`;
+    console.log(error.message);
+  }
+};
+
+
+const structureData = async (results, planets) => {
+  return results.map(({name, height, hair_color}, index) => {
+    return {
+      name,
+      height,
+      hair: hair_color,
+      planet: {
+        name: planets[index].name,
+        populations: planets[index].population
+      }
+    }
+  });
+}
+
+const fetchCharacters = async (url) => {
+  const promises = [];
+  const {results} = await fetchData(url);
+  for(let i = 0; i < results.length; i++) {
+    const planet = fetchData(results[i].homeworld);
+    promises.push(planet);
+  }
+  const planets = await Promise.all(promises);
+  return structureData(results, planets);
+}
+
 const initializeTable = () => {
   document.body.appendChild(table);
   const th = document.createElement('th');
@@ -38,39 +79,8 @@ const addDataKeys = (data) => {
   }
 };
 
-const fetchData = async (num) => {
-  try {
-    const url = 'https://swapi.dev/api/people/' + num;
-    const res = await fetch(url);
-    if(!res.ok) {
-      throw new Error('Error fetching');
-    }
-  
-    const tmpData = await res.json();
-    const tmp = {name: tmpData.name, height: tmpData.height, hairColor: tmpData.hair_color};
-
-    const planet_res = await fetch(tmpData.homeworld);
-    const planetData = await planet_res.json();
-
-    tmp.planet = {name: planetData.name, population: planetData.population};
-    return tmp;
-  }
-  catch(error) {
-    errorMsg.textContent = `username "${user}" not found`;
-  }
-};
-
-const fetchNCharacters = async (num) => {
-  const data = [];
-  for(let i = 1; i <= num; i++) {
-    const tmp = await fetchData(i);
-    data.push(tmp);
-  }
-  return data;
-}
-
-const displayData = async () => {
-  const data = await fetchNCharacters(10);
+const displayData = (url) => {
+  const data = fetchCharacters(url);
 
   initializeTable();
   addDataKeys(data[0]);
@@ -96,7 +106,8 @@ const displayData = async () => {
 };
 
 const start = async () => {
-  displayData();
+  const url = 'https://swapi.dev/api/people/';
+  displayData(url);
 };
 
 start();
