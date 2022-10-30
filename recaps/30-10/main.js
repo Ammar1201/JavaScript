@@ -949,7 +949,7 @@ const setPropertyBrandToAllCars = (carMarket) => {
   // });
 };
 
-setPropertyBrandToAllCars(ourCarMarket);
+// setPropertyBrandToAllCars(ourCarMarket);
 
 //* 21. sortAndFilterByYearOfProduction
 //?   filter and Sort in a Ascending or Descending order all vehicles for sale by year of production.
@@ -959,6 +959,23 @@ setPropertyBrandToAllCars(ourCarMarket);
 //?   @param {boolean} - isAscendingOrder - true for ascending order, false for descending order (optional)
 //?   @return {object[]} - arrayOfModels - array of sorted cars
 
+const sortAndFilterByYearOfProduction = (arrOfCars, fromYear = 0, toYear = Infinity, isAscendingOrder) => {
+  const arrayOfModels = arrOfCars.filter(car => {
+    if(car.year >= fromYear && car.year <= toYear) {
+      return car;
+    }
+  });
+  if(isAscendingOrder) {
+    arrayOfModels.sort((a, b) => a.year > b.year ? 1 : -1);
+  }
+  else {
+    arrayOfModels.sort((a, b) => a.year < b.year ? 1 : -1);
+  }
+  return arrayOfModels;
+}
+
+// console.log(sortAndFilterByYearOfProduction(getCarsToBuy(ourCarMarket.sellers), 2005, 2015, true));
+
 //* 22. sortAndFilterByPrice
 //?   filter and Sort in a Ascending or Descending order all vehicles for sale by price of the cars.
 //?   @param {object[]} - arrOfCars - array of cars
@@ -967,6 +984,21 @@ setPropertyBrandToAllCars(ourCarMarket);
 //?   @param {boolean} - isAscendingOrder - true for ascending order, false for descending order
 //?   @return {object[]} - arrayOfModels - array of sorted cars
 
+const sortAndFilterByPrice = (arrOfCars, fromPrice = 0, toPrice = Infinity, isAscendingOrder) => {
+  const arrayOfModels = arrOfCars.filter(car => {
+    if(car.price >= fromPrice && car.price <= toPrice) {
+      return car;
+    }
+  });
+  if(isAscendingOrder) {
+    arrayOfModels.sort((a, b) => a.price > b.price ? 1 : -1);
+  }
+  else {
+    arrayOfModels.sort((a, b) => a.price < b.price ? 1 : -1);
+  }
+  return arrayOfModels;
+}
+
 //* 23. searchCar
 //?   @param {object[]} - arrOfCars - array of cars
 //?   @param {number} - fromYear - Will display vehicles starting this year (optional)
@@ -974,6 +1006,17 @@ setPropertyBrandToAllCars(ourCarMarket);
 //?   @param {number} - fromPrice - Will display vehicles starting at this price (optional)
 //?   @param {number} - fromPrice - Will display vehicles up to this price (optional)
 //?   @param {string} - brand - Look only for cars of this brand (optional)
+
+const searchCar = (arrOfCars, fromYear, toYear, fromPrice, toPrice, brand) => {
+  const tmp = sortAndFilterByYearOfProduction(arrOfCars, fromYear, toYear);
+  const arrayOfModels = sortAndFilterByPrice(tmp, fromPrice, toPrice);
+  if(brand !== undefined) {
+    return arrayOfModels.filter(car => car.name === brand);
+  }
+  return arrayOfModels;
+};
+
+// console.log(searchCar(getCarsToBuy(ourCarMarket.sellers), 2010, undefined, undefined, undefined, '3'));
 
 //! ------------------ Ninja ------------------
 //* 24. sellCar
@@ -996,3 +1039,54 @@ setPropertyBrandToAllCars(ourCarMarket);
 // !     - Check that the customer has enough money to purchase the vehicle, if not return 'The customer does not have enough money'
 
 //!      - Try to divide the tasks into several functions and try to maintain a readable language.
+
+const changeCarOwner = (carObj, newOwnerID) => {
+  carObj.ownerId = newOwnerID;
+  return carObj;
+};
+
+const handleTaxes = carPrice => {
+  ourCarMarket.taxesAuthority.totalTaxesPaid += carPrice * 0.17;
+  ourCarMarket.taxesAuthority.sumOfAllTransactions += 1;
+  ourCarMarket.taxesAuthority.numberOfTransactions += carPrice + (carPrice * 0.17);
+};
+
+const sellCar = (agencyId, customerId, carModel) => {
+  const customer = getCustomerById(ourCarMarket.customers, customerId);
+  const agency = getAgencyById(ourCarMarket.sellers, agencyId);
+  const cars = getCarsToBuyByModelAndAgencyId(ourCarMarket.sellers, carModel, agencyId);
+
+  if(cars.length === 0) {
+    return 'The vehicle does not exist at the agency';
+  }
+
+  if(customer.cash + (cars[0].price * 0.17) < cars[0].price) {
+    return 'The customer does not have enough money';
+  }
+
+  decOrIncCashOfCustomer(customer, -(cars[0].price + (cars[0].price * 0.17)));
+
+  decOrIncCashOfAgency(agency, cars[0].price);
+
+  changeCarOwner(cars[0], customerId);
+
+  deleteCarFromAgency(agency, cars[0].carNumber);
+
+  setCarToCustomer(customer, cars[0]);
+
+  handleTaxes(cars[0].price);
+
+  return customer.cars[customer.cars.length - 1];
+};
+
+console.log(sellCar('26_IPfHU1', '2RprZ1dbL', 'X5'));
+
+// const setNewCarToAgency = (agencyObject, carObject)
+
+// const deleteCarFromAgency = (agencyObject, carNumber)
+
+// const decOrIncCashOfAgency = (agencyObj, amount)
+
+// const setCarToCustomer = (customerObj, carObject)
+
+// const decOrIncCashOfCustomer = (costumerObj, amount)
